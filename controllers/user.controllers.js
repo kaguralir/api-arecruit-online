@@ -94,8 +94,8 @@ exports.signup = (req,res)=>{
       }else {
         const claims = {user_id : data.rows[0].user_id, user_name:data.rows[0].user_name,user_firstname: data.rows[0].user_firstname};
         const jwt =  Jwt.sign(claims,TOKEN,{expiresIn: '1h'});
-
         res.json({user_info:data.rows[0],jwt});
+        
       }
 
     });
