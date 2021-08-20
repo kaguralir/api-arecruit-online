@@ -156,19 +156,7 @@ User.createUserInfo = (user_id,result)=>{
   });
 
 }
-User.createFullUserInfo = (user,result)=>{
 
-  psql.query('INSERT INTO user_info  (user_phone_number,user_address,user_department,user_city,user_zip_code,user_country,user_id,user_consultant_id)  VALUES ($1,$2,$3,$4,$5,$6,$7,$8) ;',
-  [user.user_phone_number,user.user_address,user.user_department,user.user_city,user.user_zip_code,user.user_country,user.user_id,user.user_consultant_id], 
-  (err, res) => {
-    if (err) {
-      result(err, null);
-      return;
-    }
-    result(null,res);
-  });
-
-}
 
 User.login = (lodedUser, result) => {
   

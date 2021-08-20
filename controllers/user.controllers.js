@@ -95,7 +95,7 @@ exports.signup = (req,res)=>{
         const claims = {user_id : data.rows[0].user_id, user_name:data.rows[0].user_name,user_firstname: data.rows[0].user_firstname};
         const jwt =  Jwt.sign(claims,TOKEN,{expiresIn: '1h'});
         res.json({user_info:data.rows[0],jwt});
-        
+
       }
 
     });
@@ -116,24 +116,6 @@ exports.createUserInfo =(req,res)=>{
   })
 }
 
-exports.createFullUserInfo =(req,res)=>{
-
-  const user = new User({
-    user_name:req.body.user_name,
-    user_firstname: req.body.user_firstname,
-    user_email: req.body.user_email,
-    user_password: hash,
-    user_right:req.body.user_right
-  });
-
-  User.createFullUserInfo(user,(err,data)=>{
-      if (err){
-
-        res.json(err||{err:401});
-
-      }else res.json(data.rows[0]);
-  })
-}
 
 exports.login = (req, res) => {
 

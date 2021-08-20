@@ -34,3 +34,26 @@ exports.getCity = (req,res)=>{
   });
 
 }
+
+
+exports.createFullUserInfo =(req,res)=>{
+
+  const user = new User_info({
+    user_phone_number:req.body.user_phone_number,
+    user_address:req.body.user_address,
+    user_department:req.body.user_department,
+    user_city:req.body.user_city,
+    user_zip_code:req.body.user_zip_code,
+    user_country:req.body.user_country,
+    user_id:req.body.user_id,
+    user_consultant_id:req.body.user_consultant_id
+  });
+
+  User_info.createFullUserInfo(user,(err,data)=>{
+      if (err){
+
+        res.json(err||{err:401});
+
+      }else res.json(data.rows[0]);
+  })
+}
