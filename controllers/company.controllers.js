@@ -31,6 +31,7 @@ exports.createFullCompany = (req,res)=>{
     is_partner:req.body.is_partner,
     partner_type:req.body.partner_type,
     consultant_id:req.body.consultant_id,
+    company_contrat:req.body.company_contrat,
   });
 
   Company.createFullCompany(company,(err, data) => {

@@ -40,7 +40,7 @@ Company.createCompany =(user_id,result)=>{
 
 Company.createFullCompany = (company,result)=>{ 
 
-  psql.query('INSERT INTO company (company_name,  company_address, company_representative_id, company_representative_status , company_phone_number, company_headquarters , company_rcs , is_partner , partner_type ,consultant_id  ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10) RETURNING company_id',
+  psql.query('INSERT INTO company (company_name,  company_address, company_representative_id, company_representative_status , company_phone_number, company_headquarters , company_rcs , is_partner , partner_type ,consultant_id ,company_contrat ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11) RETURNING company_id',
   [
     company.company_name,
     company.company_address,
@@ -52,6 +52,8 @@ Company.createFullCompany = (company,result)=>{
     company.is_partner,
     company.partner_type,
     company.consultant_id,
+    company.company_contrat,
+
   ], 
   (err, res) => {
     if (err) {
