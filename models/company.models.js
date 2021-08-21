@@ -38,6 +38,32 @@ Company.createCompany =(user_id,result)=>{
   });
 }
 
+Company.createFullCompany = (company,result)=>{ 
+
+  psql.query('INSERT INTO company (company_name,  company_address, company_representative_id, company_representative_status , company_phone_number, company_headquarters , company_rcs , is_partner , partner_type ,consultant_id  ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10) RETURNING company_id',
+  [
+    company.company_name,
+    company.company_address,
+    company.company_representative_id,
+    company.company_representative_status,
+    company.company_phone_number,
+    company.company_headquarters,
+    company.company_rcs,
+    company.is_partner,
+    company.partner_type,
+    company.consultant_id,
+  ], 
+  (err, res) => {
+    if (err) {
+      result(err, null);
+      return;
+    }
+    console.log(res)
+    result(null,res);
+  });
+}
+
+
 Company.updateCompanyInfo = (company,result)=>{ 
 
   psql.query('UPDATE company SET'+
@@ -69,6 +95,7 @@ Company.updateCompanyInfo = (company,result)=>{
     result(null,res);
   });
 }
+
 
 Company.getCompanyInfo = (user_id,result)=>{
   psql.query('SELECT  '+

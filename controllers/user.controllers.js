@@ -89,7 +89,7 @@ exports.signup = (req,res)=>{
 
       if (err){
 
-        res.json(err||{err:401});
+        res.json({err:err}||{err:401});
 
       }else {
         const claims = {user_id : data.rows[0].user_id, user_name:data.rows[0].user_name,user_firstname: data.rows[0].user_firstname};

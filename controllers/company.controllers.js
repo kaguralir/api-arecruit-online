@@ -18,6 +18,33 @@ exports.createCompany = (req,res)=>{
   });
 }
 
+exports.createFullCompany = (req,res)=>{
+
+  const company = new Company({
+    company_name:req.body.company_name,
+    company_address:req.body.company_address,
+    company_representative_id:req.body.company_representative_id,
+    company_representative_status:req.body.company_representative_status,
+    company_phone_number: req.body.company_phone_number,
+    company_headquarters:req.body.company_headquarters,
+    company_rcs: req.body.company_rcs,
+    is_partner:req.body.is_partner,
+    partner_type:req.body.partner_type,
+    consultant_id:req.body.consultant_id,
+  });
+
+  Company.createFullCompany(company,(err, data) => {
+
+    if (err){
+
+      res.json(err || {err:401});
+
+    }else res.json(data.rows[0]);
+
+  });
+
+}
+
 exports.uploadCompanyLogo = async (req,res)=>{
 
   const AWS_S3=await require('../configs/aws');
