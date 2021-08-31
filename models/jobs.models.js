@@ -21,6 +21,21 @@ const Jobs = function (job) {
   this.job_description_pdf= job.job_description_pdf;
 };
 
+Jobs.getJobById = (id, result) => {
+  
+  psql.query("SELECT * FROM jobs WHERE job_id = $1 ",
+  [id],
+  (err, res) => {
+    if (err) {
+      result(err, null);
+      return;
+    }
+    result(null,res);
+  });
+
+};
+
+
 Jobs.getFillededJob = (company_id, result) => {
   
   psql.query("SELECT job_id,job_title,to_char(created_at, 'TMDay TMDD TMmonth YYYY') as created_at,job_hire FROM jobs WHERE job_creator_id = $1 AND job_statut = $2",

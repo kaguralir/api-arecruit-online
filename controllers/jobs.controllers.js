@@ -1,5 +1,20 @@
 const Jobs = require("../models/jobs.models.js");
 
+exports.getJobById = (req,res)=>{
+
+    const id = req.body.id
+
+    Jobs.getJobById(id,(err, data) => {
+  
+        if (err){
+  
+          res.json(err || {err:401});
+  
+        }else res.json(data.rows);
+  
+    });
+  
+}
 
 exports.getFillededJob = (req,res)=>{
 

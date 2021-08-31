@@ -2,6 +2,7 @@ module.exports = app => {
 
     const job = require("../controllers/jobs.controllers.js");
 
+    app.post("/getJobById",job.getJobById);
 
     app.post("/getUnFillededJob",job.getUnFillededJob);
 
