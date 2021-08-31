@@ -19,6 +19,8 @@ const Jobs = function (job) {
   this.job_origin = job.job_origin;
   this.job_hire = job.job_hire;
   this.job_description_pdf= job.job_description_pdf;
+  this.job_type=job.job_type;
+  this.job_remuneration=job.job_remuneration;
 };
 
 Jobs.getJobById = (id, result) => {
