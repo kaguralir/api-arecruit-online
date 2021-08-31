@@ -25,6 +25,8 @@ const Company = function(company) {
   this.company_location = company.company_location;
   this.company_logo = company.company_logo;
   this.company_contrat = company.company_contrat;
+  this.company_siret = company.company_siret;
+  this.company_ape = company.company_ape;
 };
 
 Company.createCompany =(user_id,result)=>{
@@ -98,6 +100,38 @@ Company.updateCompanyInfo = (company,result)=>{
   });
 }
 
+Company.updateConsultantCompanyInfo = (company,result)=>{ 
+  console.log(company)
+  psql.query('UPDATE company SET'+
+  ' company_name =$2 , company_nationality = $3 , company_address= $4 , company_department = $5 , company_history = $6 , company_phone_number= $7 , company_headquarters = $8 , company_city = $9 , company_rcs = $10 , company_zip_code =$11 , company_country = $12 , company_siret = $13 , company_ape = $14 ,company_activity =$15  WHERE company_id = $1 RETURNING company_id',
+  [
+    company.company_id,
+    company.company_name,
+    company.company_nationality,
+    company.company_address,
+    company.company_department,
+    company.company_history,
+    company.company_phone_number,
+    company.company_headquarters,
+    company.company_city,
+    company.company_rcs,
+    company.company_zip_code,
+    company.company_country,
+    company.company_siret,
+    company.company_ape,
+    company.company_activity,
+  ], 
+  (err, res) => {
+    //console.log(res)
+    //console.log(err)
+
+    if (err) {
+      result(err, null);
+      return;
+    }
+    result(null,res);
+  });
+}
 
 Company.getCompanyInfo = (user_id,result)=>{
   psql.query('SELECT  '+
@@ -140,6 +174,48 @@ Company.getCompanyInfo = (user_id,result)=>{
   });
 }
 
+
+Company.getCompanyInfoById = (id,result)=>{
+  psql.query('SELECT  '+
+  'company_id,'+
+  'company_name,'+
+  'company_nationality,'+
+  'company_phone_number,'+
+  'company_headquarters,'+
+  'company_address,'+
+  'company_department,'+
+  'company_city,'+
+  'company_rcs,'+
+  'company_zip_code,'+
+  'company_country,'+
+  'company_representative_id,'+
+  'company_representative_status,'+
+  'is_partner,'+
+  'partner_type,'+
+  'consultant_id,'+
+  'company_presentation_pdf,'+
+  'company_presentation_video,'+
+  'company_activity,'+
+  'company_history,'+
+  'company_location,'+
+  'company_logo,'+
+  'company_contrat,'+
+  'user_name as company_consultant_name,'+
+  'user_firstname as company_consultant_firstname,'+
+  'user_profile as company_consultant_profile,'+
+  'user_calendly as company_consultant_calendly '+
+
+  'FROM company JOIN users ON user_id=consultant_id JOIN user_info ON users.user_id = user_info.user_id WHERE company_id = $1',[id],
+  (err, res) => {
+    if (err) {
+      result(err, null);
+      return;
+    }
+   // console.log(res.rows)
+    result(null,res);
+  });
+}
+
 Company.getCompanyInfoByName = (company_name,result)=>{
   psql.query("SELECT * FROM company WHERE LOWER(REPLACE(company_name,' ', '-'))=$1;",[company_name],
   (err, res) => {
@@ -166,6 +242,7 @@ Company.getAllCompany = (result)=>{
 Company.uploadCompanyLogo = (data,result)=>{
   psql.query('UPDATE company SET company_logo = $1 WHERE company_id=$2',[data.company_logo,data.company_id],
   (err, res) => {
+    
     if (err) {
       result(err, null);
       return;

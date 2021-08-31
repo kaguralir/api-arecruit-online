@@ -52,7 +52,7 @@ exports.uploadCompanyLogo = async (req,res)=>{
   let file =  req.body.file.buffer;
   let base64 =  file.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
   var buffer = new Buffer.from(base64[2],'base64');
-
+  console.log(req)
 
   const params={
     Body: buffer,
@@ -61,7 +61,8 @@ exports.uploadCompanyLogo = async (req,res)=>{
   }
 
   AWS_S3.myBucket.upload(params, async (err,data)=>{
-
+    console.log(data)
+    console.log(err)
     Company.uploadCompanyLogo({company_logo:data.Location,company_id:req.body.id},(err, data) => {
       if (err){
         res.json(err || {err:401});
@@ -158,6 +159,38 @@ exports.updateCompanyInfo = (req,res)=>{
 
 }
 
+exports.updateConsultantCompanyInfo = (req,res)=>{
+
+  const company = new Company({
+    company_id:req.body.company_id,
+    company_name:req.body.company_name,
+    company_nationality:req.body.company_nationality,
+    company_address:req.body.company_address,
+    company_department:req.body.company_department,
+    company_activity:req.body.company_activity,
+    company_phone_number: req.body.company_phone_number,
+    company_headquarters:req.body.company_headquarters,
+    company_city:req.body.company_city,
+    company_rcs: req.body.company_rcs,
+    company_zip_code:req.body.company_zip_code,
+    company_country:req.body.company_country,
+    company_ape:req.body.company_ape,
+    company_siret:req.body.company_siret,
+    company_history:req.body.company_history,
+   
+  });
+  Company.updateConsultantCompanyInfo(company,(err, data) => {
+
+    if (err){
+
+      res.json(err || {err:401});
+
+    }else res.json(data.rows[0]);
+
+  });
+
+}
+
 
 exports.getCompanyInfo = (req,res)=>{
 
@@ -173,6 +206,24 @@ exports.getCompanyInfo = (req,res)=>{
 
   });
 }
+
+
+
+exports.getCompanyInfoById = (req,res)=>{
+
+  const id= req.body.id;
+
+  Company.getCompanyInfoById(id,(err, data) => {
+
+    if (err){
+
+      res.json(err || {err:401});
+
+    }else res.json(data.rows[0]);
+
+  });
+}
+
 
 exports.getCompanyInfoByName  = (req,res)=>{
 

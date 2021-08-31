@@ -18,7 +18,11 @@ module.exports = app => {
 
     app.post('/updateCompanyInfo',company.updateCompanyInfo);
 
+    app.post('/updateConsultantCompanyInfo',company.updateConsultantCompanyInfo);
+
     app.post('/getCompanyInfo', company.getCompanyInfo);
+
+    app.post('/getCompanyInfoById', company.getCompanyInfoById);
 
     app.get('/getAllCompany', company.getAllCompany);
 
