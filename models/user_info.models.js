@@ -32,7 +32,7 @@ User_info.getConsultantByDepartment = (departement, result) => {
 
 User_info.getCity = (result) => {
   
-  psql.query("SELECT DISTINC(user_city) FROM user_info ;",
+  psql.query("SELECT DISTINCT user_city FROM user_info ;",
   (err, res) => {
     if (err) {
       result(err, null);
