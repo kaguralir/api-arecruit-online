@@ -12,6 +12,8 @@ module.exports = app => {
 
     app.get("/getAllUsers",user.getAllUsers);
 
+    app.get("/getUserAccoundFormula",user.getUserAccoundFormula);
+
     app.post("/getUserProfileInfo",user.getUserProfileInfo);
 
     app.post("/getUserInfoById",user.getUserInfoById);

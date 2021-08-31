@@ -183,6 +183,17 @@ User.getAllUsers = (result) => {
     result(null,res);
   });
 };
+User.getUserAccoundFormula = (id,result)=>{
+
+  psql.query("SELECT account FROM public.users WHERE user_id=$1",[id], (err, res) => {
+    
+    if (err) {
+      result(err, null);
+      return;
+    }
+    result(null,res);
+  });
+}
 
 User.getUserProfileInfo = (id,result) => {
   

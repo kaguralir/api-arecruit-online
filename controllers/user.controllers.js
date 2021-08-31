@@ -103,6 +103,21 @@ exports.signup = (req,res)=>{
   }); 
 }
 
+
+exports.getUserAccoundFormula =(req,res)=>{
+
+  const id = req.body.id
+
+  User.getUserAccoundFormula(user_id,(err,data)=>{
+      if (err){
+
+        res.json(err||{err:401});
+
+      }else res.json(data.rows[0]);
+  })
+}
+
+
 exports.createUserInfo =(req,res)=>{
 
   const user_id = req.body.user_id
