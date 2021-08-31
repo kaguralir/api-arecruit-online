@@ -144,6 +144,7 @@ Company.getCompanyInfo = (user_id,result)=>{
   'company_department,'+
   'company_city,'+
   'company_rcs,'+
+  'company_siret,'+
   'company_zip_code,'+
   'company_country,'+
   'company_representative_id,'+
@@ -158,6 +159,7 @@ Company.getCompanyInfo = (user_id,result)=>{
   'company_location,'+
   'company_logo,'+
   'company_contrat,'+
+  'user_email as company_email,'+
   'user_name as company_consultant_name,'+
   'user_firstname as company_consultant_firstname,'+
   'user_profile as company_consultant_profile,'+
@@ -186,6 +188,7 @@ Company.getCompanyInfoById = (id,result)=>{
   'company_department,'+
   'company_city,'+
   'company_rcs,'+
+  'company_siret,'+
   'company_zip_code,'+
   'company_country,'+
   'company_representative_id,'+
@@ -203,6 +206,7 @@ Company.getCompanyInfoById = (id,result)=>{
   'user_name as company_consultant_name,'+
   'user_firstname as company_consultant_firstname,'+
   'user_profile as company_consultant_profile,'+
+  'user_email as company_email,'+
   'user_calendly as company_consultant_calendly '+
 
   'FROM company JOIN users ON user_id=consultant_id JOIN user_info ON users.user_id = user_info.user_id WHERE company_id = $1',[id],
