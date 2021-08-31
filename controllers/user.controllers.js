@@ -108,7 +108,7 @@ exports.getUserAccoundFormula =(req,res)=>{
 
   const id = req.body.id
 
-  User.getUserAccoundFormula(user_id,(err,data)=>{
+  User.getUserAccoundFormula(id,(err,data)=>{
       if (err){
 
         res.json(err||{err:401});
