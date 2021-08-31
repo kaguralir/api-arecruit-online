@@ -10,7 +10,7 @@ exports.getJobById = (req,res)=>{
   
           res.json(err || {err:401});
   
-        }else res.json(data.rows);
+        }else res.json(data.rows[0]);
   
     });
   
