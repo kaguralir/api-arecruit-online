@@ -28,6 +28,7 @@ const Company = function(company) {
   this.company_siret = company.company_siret;
   this.company_ape = company.company_ape;
   this.company_tva=company.company_tva;
+  this.company_president=company.company_president;
 };
 
 Company.createCompany =(user_id,result)=>{
