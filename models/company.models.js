@@ -138,6 +138,7 @@ Company.getCompanyInfo = (user_id,result)=>{
   psql.query('SELECT  '+
   'company_id,'+
   'company_name,'+
+  'company_president,'+
   'company_nationality,'+
   'company_phone_number,'+
   'company_headquarters,'+
@@ -184,6 +185,7 @@ Company.getCompanyInfoById = (id,result)=>{
   psql.query('SELECT  '+
   'company_id,'+
   'company_name,'+
+  'company_president,'+
   'company_nationality,'+
   'company_phone_number,'+
   'company_headquarters,'+
