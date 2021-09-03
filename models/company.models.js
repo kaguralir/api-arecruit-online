@@ -27,6 +27,7 @@ const Company = function(company) {
   this.company_contrat = company.company_contrat;
   this.company_siret = company.company_siret;
   this.company_ape = company.company_ape;
+  this.company_tva=company.company_tva;
 };
 
 Company.createCompany =(user_id,result)=>{
@@ -157,6 +158,8 @@ Company.getCompanyInfo = (user_id,result)=>{
   'company_activity,'+
   'company_history,'+
   'company_location,'+
+  'company_ape,'+
+  'company_tva,'+
   'company_logo,'+
   'company_contrat,'+
   'user_email as company_email,'+
@@ -202,6 +205,8 @@ Company.getCompanyInfoById = (id,result)=>{
   'company_history,'+
   'company_location,'+
   'company_logo,'+
+  'company_ape,'+
+  'company_tva,'+
   'company_contrat,'+
   'user_name as company_consultant_name,'+
   'user_firstname as company_consultant_firstname,'+
