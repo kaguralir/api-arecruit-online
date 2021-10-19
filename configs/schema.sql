@@ -1,4 +1,3 @@
-
 CREATE TABLE  IF NOT EXISTS  users (
 
     user_id         serial primary key,
@@ -101,4 +100,3 @@ CREATE TABLE  IF NOT EXISTS cv_bank (
 
 
 );
-

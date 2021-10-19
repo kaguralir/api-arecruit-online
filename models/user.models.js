@@ -1,14 +1,14 @@
 const psql = require("../configs/db.js");
 
 // constructor
-const User = function(user) {
+const User = function (user) {
   this.user_id = user.user_id;
   this.user_name = user.user_name;
   this.user_firstname = user.user_firstname;
   this.user_email = user.user_email;
-  this.user_right= user.user_right;
+  this.user_right = user.user_right;
   this.user_password = user.user_password;
-  this.user_profile= user.user_profile;
+  this.user_profile = user.user_profile;
 };
 
 // User.createDb = (result)=>{
@@ -108,7 +108,7 @@ const User = function(user) {
 
 
 //     ");", (err, res) => {
-    
+
 //     if (err) {
 //       result(err, null);
 //       return;
@@ -118,137 +118,138 @@ const User = function(user) {
 
 // }
 
-User.test = (result)=>{
+User.test = (result) => {
 
   psql.query("SELECT user_name FROM public.users ", (err, res) => {
-    
+
     if (err) {
       result(err, null);
       return;
     }
-    result(null,res);
+    result(null, res);
   });
 }
 
-User.signup = (newUser,result)=>{ 
+User.signup = (newUser, result) => {
 
   psql.query('INSERT INTO users  (user_name,user_firstname,user_email,user_password,user_right) VALUES ($1,$2,$3,$4,$5) RETURNING user_id, user_name,user_firstname;',
-  [newUser.user_name,newUser.user_firstname,newUser.user_email,newUser.user_password,newUser.user_right], 
-  (err, res) => {
-    if (err) {
-      result(err, null);
-      return;
-    }
-      result(null,res);
-  });
+    [newUser.user_name, newUser.user_firstname, newUser.user_email, newUser.user_password, newUser.user_right],
+    (err, res) => {
+      if (err) {
+        result(err, null);
+        return;
+      }
+      result(null, res);
+    });
 }
 
-User.createUserInfo = (user_id,result)=>{
+User.createUserInfo = (user_id, result) => {
 
   psql.query('INSERT INTO user_info  (user_id)  VALUES ($1) ;',
-    [user_id], 
+    [user_id],
     (err, res) => {
-    if (err) {
-      result(err, null);
-      return;
-    }
-    result(null,res);
-  });
+      if (err) {
+        result(err, null);
+        return;
+      }
+      result(null, res);
+    });
 
 }
 
 
 User.login = (lodedUser, result) => {
-  
+
   psql.query("SELECT * FROM users WHERE user_email= $1",
-  [lodedUser.user_email],
-  (err, res) => {
-    if (err) {
-      result(err, null);
-      return;
-    }
-    result(null,res.rows[0]);
-  });
+    [lodedUser.user_email],
+    (err, res) => {
+      if (err) {
+        result(err, null);
+        return;
+      }
+      result(null, res.rows[0]);
+    });
 };
 
 User.getAllUsers = (result) => {
-  
-  psql.query("SELECT user_id,user_name,user_firstname FROM users",
- 
-  (err, res) => {
-    if (err) {
-      result(err, null);
-      return;
-    }
-    result(null,res);
-  });
-};
-User.getUserAccoundFormula = (id,result)=>{
 
-  psql.query("SELECT account FROM public.users WHERE user_id=$1",[id], (err, res) => {
-    
+  psql.query("SELECT user_id,user_name,user_firstname FROM users",
+
+    (err, res) => {
+      if (err) {
+        result(err, null);
+        return;
+      }
+      result(null, res);
+    });
+};
+User.getUserAccoundFormula = (id, result) => {
+
+  psql.query("SELECT account FROM public.users WHERE user_id=$1", [id], (err, res) => {
+
     if (err) {
       result(err, null);
       return;
     }
-    result(null,res);
+    result(null, res);
+    console.log(res);
   });
 }
 
-User.getUserProfileInfo = (id,result) => {
-  
-  psql.query("SELECT "+
-  "users.user_id,"+
-  "user_name,"+
-  "user_firstname,"+
-  "user_profession,"+
-  "user_phone_number,"+
-  "user_country,"+
-  "user_address,"+
-  "user_department,"+
-  "user_email,"+
-  "user_city,"+
-  "user_zip_code,"+
-  "user_location,"+
-  "user_post"+
-  " FROM users JOIN user_info ON users.user_id=user_info.user_id WHERE CONCAT(users.user_id,'@',LOWER(REPLACE(user_name,' ', '-')),'-',LOWER(REPLACE(user_firstname,' ', '-')))= $1",
-  [id],
-  (err, res) => {
-    if (err) {
-      result(err, null);
-      return;
-    }
-    result(null,res);
-  });
+User.getUserProfileInfo = (id, result) => {
+
+  psql.query("SELECT " +
+    "users.user_id," +
+    "user_name," +
+    "user_firstname," +
+    "user_profession," +
+    "user_phone_number," +
+    "user_country," +
+    "user_address," +
+    "user_department," +
+    "user_email," +
+    "user_city," +
+    "user_zip_code," +
+    "user_location," +
+    "user_post" +
+    " FROM users JOIN user_info ON users.user_id=user_info.user_id WHERE CONCAT(users.user_id,'@',LOWER(REPLACE(user_name,' ', '-')),'-',LOWER(REPLACE(user_firstname,' ', '-')))= $1",
+    [id],
+    (err, res) => {
+      if (err) {
+        result(err, null);
+        return;
+      }
+      result(null, res);
+    });
 };
 
 
-User.getUserInfoById = (user_id,result) => {
-  
-  psql.query("SELECT "+
-  "users.user_id,"+
-  "user_name,"+
-  "user_firstname,"+
-  "user_profession,"+
-  "user_phone_number,"+
-  "user_country,"+
-  "user_address,"+
-  "user_department,"+
-  "user_email,"+
-  "user_city,"+
-  "user_zip_code,"+
-  "user_location,"+
-  "user_post"+
-  " FROM users JOIN user_info ON users.user_id=user_info.user_id WHERE users.user_id= $1",
-  [user_id],
-  (err, res) => {
-    if (err) {
-      result(err, null);
-      return;
-    }
-    //console.log(res)
-    result(null,res);
-  });
+User.getUserInfoById = (user_id, result) => {
+
+  psql.query("SELECT " +
+    "users.user_id," +
+    "user_name," +
+    "user_firstname," +
+    "user_profession," +
+    "user_phone_number," +
+    "user_country," +
+    "user_address," +
+    "user_department," +
+    "user_email," +
+    "user_city," +
+    "user_zip_code," +
+    "user_location," +
+    "user_post" +
+    " FROM users JOIN user_info ON users.user_id=user_info.user_id WHERE users.user_id= $1",
+    [user_id],
+    (err, res) => {
+      if (err) {
+        result(err, null);
+        return;
+      }
+      //console.log(res)
+      result(null, res);
+    });
 };
 
 
@@ -298,7 +299,7 @@ User.signup = (newUser, result) => {
 };
 
 User.login = (lodedUser, result) => {
-  
+
     sql.query("SELECT * FROM user WHERE user_email= ? ",[lodedUser.user_email], (err, res) => {
       if (err) {
         result(err, null);
@@ -317,7 +318,7 @@ User.getAll = (result) => {
     }
     result(null,res);
   });
-  
+
 }
 
 module.exports = User;
