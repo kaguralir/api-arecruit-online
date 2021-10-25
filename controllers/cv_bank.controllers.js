@@ -82,3 +82,26 @@ exports.getCVbyId = async (req, res) => {
   });
 }
 
+
+exports.getCVUser = (req, res) => {
+
+
+  cv.getCVUser((err, data) => {
+
+    if (err) {
+      console.log(err);
+      res.status(500).json({
+
+        message: err.message || "Une erreur est survenue pendant la récupération des Cvs."
+      });
+
+    } else {
+/*       console.log(data);
+ */      res.json(data.rows)
+    };
+
+  });
+
+}
+
+

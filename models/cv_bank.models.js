@@ -73,3 +73,60 @@ CvBank.getCVbyId = (candidat_id, result) => {
 
 
 module.exports = CvBank;
+
+
+CvBank.getCVUser = (result) => {
+  let cv = []
+
+  /*   psql.query("SELECT user_id, user_name, user_firstname, user_email FROM public.users INNER JOIN public.cv_bank ON candidat_id = public.cv_bank.candidat_id",
+   */
+  psql.query("SELECT * FROM public.cv_bank INNER JOIN public.users ON candidat_id = user_id",
+
+    (err, res) => {
+      if (err) {
+
+        result(err, null);
+        return;
+      }
+      console.log("res is ", res.rows);
+      result(null, res);
+    });
+
+  /*   psql.query("SELECT * FROM public.cv_bank INNER JOIN public.users ON candidat_id = users.id ");
+   */
+
+
+  /*   for (const row of rows) {
+      let instance = new cv(row.candidat_id, row.searched_job1, row.job_location1, row.job_field1, row.experience1)
+      instance.users = new user(row.user_id, row.user_name, row.user_firstname, row.user_email)
+      cv.push(instance)
+    }
+   */
+  /*   if (err) {
+      console.log(err);
+      result(err, null);
+      return;
+    }
+    console.log("users is", user);
+    return cv; */
+
+}
+
+
+
+
+
+module.exports = CvBank;
+
+/*
+static async findAllArticle() {
+  let art = []
+      const [rows] = await Connection.query("SELECT * FROM article INNER JOIN user ON id_user = user.id ");
+  for (const row of rows) {
+      let instance = new article(row.titre, row.contenu, row.id_user, row.image, row.id)
+      instance.user = new user(row.name, row.email, row.password, row.role, row.id_user)
+      art.push(instance)
+  }
+  return art;
+
+} */
