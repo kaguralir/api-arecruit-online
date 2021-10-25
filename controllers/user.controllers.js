@@ -55,20 +55,23 @@ exports.getUserProfileInfo = (req, res) => {
   });
 }
 exports.getUserInfoById = (req, res) => {
-
-  const user_id = req.body.user_id
+  console.log("req params id is", req.params.user_id);
+  console.log("req body id is", req.body.user_id);
+  const user_id = req.params.user_id
 
   User.getUserInfoById(user_id, (err, data) => {
 
     if (err) {
-
-      res.status(500).json({
+      console.log(err);
+      res.status(err).json({
         message:
           err.message || "Une erreur pendant le test de la base de donnée."
       });
 
-    } else res.json(data.rows[0]);
-
+    } else {
+      console.log(" user by id is", data.rows);
+      res.status(200).json(data.rows);
+    };
   });
 }
 

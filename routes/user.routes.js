@@ -16,7 +16,7 @@ module.exports = app => {
 
     app.post("/getUserProfileInfo", user.getUserProfileInfo);
 
-    app.post("/getUserInfoById", user.getUserInfoById);
+    app.post("/getUserInfoById/:user_id", user.getUserInfoById);
 
     app.post("/DB_CREATE", user.createDb);
 
